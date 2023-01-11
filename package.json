@@ -6,6 +6,7 @@
   "description": "Repot innehåller ett enkelt kodbibliotek för att rita vektorgrafik. Metoderna är avsedda att likna Scratch så mycket som möjligt. https://scratch.mit.edu/",
   "version": "1.0.0",
   "main": "turtle.js",
+  "type": "module",
   "scripts": {
     "start": "serve"
   },
