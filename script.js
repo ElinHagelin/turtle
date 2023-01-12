@@ -216,15 +216,29 @@ function drawC(letterHeight) {
 }
 
 function semicircleClockwise(size) {
-	for (let x = 0; x < size; x++) {
-		T.move(size)
-		T.turn(180 / (size / 1.1))
+	for (let x = 0; x < 18 / 1.8; x++) {
+		T.move(size / 6)
+		T.turn(180 / 9)
 	}
 }
 function semicircleCounterClockwise(size) {
-	for (let x = 0; x < size; x++) {
-		T.move(size)
-		T.turn(-180 / (size / 1.1))
+	for (let x = 0; x < 18 / 1.8; x++) {
+		T.move(size / 6)
+		T.turn(-180 / 9)
+	}
+}
+
+function quartercircleCounterClockwise(size) {
+	for (let x = 0; x < 18 / 3.6; x++) {
+		T.move(size / 9)
+		T.turn(-180 / 9)
+	}
+}
+
+function quartercircleClockwise(size) {
+	for (let x = 0; x < 18 / 3.6; x++) {
+		T.move(size / 6)
+		T.turn(180 / 9)
 	}
 }
 
@@ -235,19 +249,167 @@ function drawS(letterHeight) {
 
 }
 
-function spiral(sideLength) {
-	for (let sideCounter = 0; sideCounter == sideLength; sideCounter++) {
-		T.move(sideLength)
-		T.turn(180 / sideLength)
-		sideLength--
-	}
+function dots(size) {
+	T.penUp()
+	T.pointInDirection(0)
+	T.move(size)
+	T.turn(-90)
+	T.move(size)
+	T.penDown()
+	circle(size / 5)
+	T.penUp()
+	T.pointInDirection(86)
+	T.move(size * 3)
+	T.penDown()
+	circle(size / 5)
+}
 
+function drawÖ(letterHeight) {
+	circle(letterHeight)
+	dots(letterHeight)
+}
+
+
+function spiral() {
+	let sideLength = 30
+	let angle = 0
+	for (let sideCounter = 0; sideCounter <= sideLength * 12; sideCounter++) {
+		T.setPenColor('lightgreen')
+
+		if (angle >= 90 && angle < 180) {
+			T.setPenColor('blue')
+		}
+		else if (angle >= 180 && angle < 270) {
+			T.setPenColor('red')
+		}
+		else if (angle >= 270 && angle <= 360) {
+			T.setPenColor('purple')
+		}
+
+		T.move(sideLength)
+		T.turn(20)
+		sideLength -= 0.4
+
+		angle += 20
+
+		if (angle == 360) {
+			angle = 0
+		}
+	}
+}
+
+function spiralSquare(sideLength) {
+
+	for (let sideCounter = 0; sideCounter <= sideLength * 3; sideCounter++) {
+
+		T.move(sideLength)
+		T.turn(90)
+		sideLength -= 3
+	}
+}
+
+function triangle(sideLength) {
+	for (let sideCounter = 0; sideCounter < 3; sideCounter++) {
+
+		T.move(sideLength)
+		T.turn(-120)
+
+	}
 }
 
 
 
+function snowflake(length, points) {
+	let bluntAngle = 360 / points
+	let pointAngle = bluntAngle * 2
 
-function exercise3() {
+	for (let starCounter = 0; starCounter < points; starCounter++) {
+		T.turn(180)
+		for (let counter = 0; counter < points - 2; counter++) {
+			T.turn(pointAngle)
+			T.move(length)
+			T.turn(-bluntAngle)
+			T.move(length)
+		}
+	}
+}
+
+function drawR(letterHeight) {
+	T.turn(-90)
+	T.penDown()
+	T.move(letterHeight)
+	T.turn(90)
+	semicircleClockwise(letterHeight / 2)
+	T.turn(-140)
+	T.move(letterHeight / 1.7)
+	T.penUp()
+	T.turn(-59)
+	T.move(letterHeight / 2)
+}
+
+function drawI(letterHeight) {
+	T.turn(-90)
+	T.penDown()
+	T.move(letterHeight)
+	T.penUp()
+	T.turn(180)
+	T.move(letterHeight)
+	T.turn(-90)
+	T.move(letterHeight / 2)
+}
+
+
+
+function drawG(letterHeight) {
+	T.move(letterHeight / 1.5)
+	T.turn(-90)
+	T.move(letterHeight / 1.7)
+	T.turn(-90)
+	T.move(letterHeight / 2)
+	T.turn(180)
+	T.penDown()
+	T.move(letterHeight / 2)
+	T.turn(90)
+	quartercircleClockwise(letterHeight)
+	semicircleClockwise(letterHeight)
+	T.penUp()
+	T.turn(60)
+	T.move(letterHeight * 0.95)
+	T.turn(-90)
+	T.move(letterHeight / 1.2)
+}
+
+function drawP(letterHeight) {
+	T.turn(-90)
+	T.penDown()
+	T.move(letterHeight)
+	T.turn(90)
+	semicircleClockwise(letterHeight / 2)
+	T.penUp()
+	T.turn(-90)
+	T.move(letterHeight / 2)
+	T.turn(-90)
+	T.move(letterHeight / 2)
+}
+
+function drawRigg(letterHeight) {
+
+	for (let letterCounter = 0; letterCounter < 4; letterCounter++) {
+		if (letterCounter == 0) {
+			drawR(letterHeight)
+		}
+		else if (letterCounter == 1) {
+			drawI(letterHeight)
+		}
+		else {
+			drawG(letterHeight)
+		}
+		T.turn(40)
+		letterHeight -= 5
+	}
+}
+
+function exercise1_3() {
 	let stripe = 50
 	let space = 20
 
@@ -279,7 +441,7 @@ function start() {
 	T.setPenSize(3)
 	T.setPenColor('lightgreen')
 	T.pointInDirection(90)
-	T.goTo(0, 0)
+	T.goTo(-150, 0)
 	T.penDown()
 
 	// dashes(10)
@@ -287,5 +449,16 @@ function start() {
 	// drawC(10)
 	// drawS(10)
 	// bend()
-	spiral(10)
+	// drawÖ(20)
+	// spiral(100)
+	// spiralSquare(100)
+	// triangle(100)
+	// snowflake(20, 6)
+	// drawR(100)
+	// drawI(100)
+	// quartercircleCounterClockwise(30)
+	// drawG(100)
+	// drawG(100)
+	// drawP(100)
+	drawRigg(30)
 }
